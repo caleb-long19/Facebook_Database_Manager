@@ -4,7 +4,7 @@ The Repository will provide my Visual Studio Folder which contains my code for m
 it also provides my UML and Normalisation diagrams in a clearer format than what is displayed on my Report.
 An exe for the Application is also available to test!
 
-# How To Ue The Application
+# How To Use The Application
 Once you load the Application you will need to select what table you wish to display in the Data Grid. To do this
 select the drop menu in the bottom right corner and select a Table. The Data will automatically be imported and displayed.
 
