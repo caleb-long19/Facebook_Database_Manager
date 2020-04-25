@@ -13,29 +13,29 @@ namespace FacebookDatabase
 {
     public partial class FacebookTestingForm : Form
     {
-
-        public static FacebookTestingForm frmkeepFacebookTestingForm = null;
-
-        public FacebookTestingForm()
-        {
-            InitializeComponent();
-            frmkeepFacebookTestingForm = this;
-        }
+        #region // Variables
 
         int IndexRow;
 
-        #region Allow User to select what Data displays in the Datagrid
-        private void mainFormComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            #region Display Facebook Users in Datagrid
-            if (mainFormComboBox.SelectedIndex == 0)
-            {
-                string connectionString = "SERVER=" + DBConnect.SERVER + ";" +
+        string connectionString = "SERVER=" + DBConnect.SERVER + ";" +
                     "DATABASE=" + DBConnect.DATABASE_NAME + ";" + "UID=" +
                     DBConnect.USER_NAME + ";" + "PASSWORD=" +
                     DBConnect.PASSWORD + ";" + "SslMode=" +
                     DBConnect.SslMode + ";";
 
+        public FacebookTestingForm()
+        {
+            InitializeComponent();
+        }
+        #endregion
+
+
+        #region // Allow User to select what Data displays in the Datagrid
+        private void mainFormComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            #region Display Facebook Users in Datagrid
+            if (mainFormComboBox.SelectedIndex == 0)
+            {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM isad157_clong.facebook_users";
@@ -55,12 +55,6 @@ namespace FacebookDatabase
             #region Display Facebook Friends in Datagrid
             else if (mainFormComboBox.SelectedIndex == 1)
             {
-                string connectionString = "SERVER=" + DBConnect.SERVER + ";" +
-                    "DATABASE=" + DBConnect.DATABASE_NAME + ";" + "UID=" +
-                    DBConnect.USER_NAME + ";" + "PASSWORD=" +
-                    DBConnect.PASSWORD + ";" + "SslMode=" +
-                    DBConnect.SslMode + ";";
-
                 using (MySqlConnection connection =
                     new MySqlConnection(connectionString))
                 {
@@ -69,10 +63,10 @@ namespace FacebookDatabase
                     MySqlCommand cmd = new MySqlCommand(query, connection);
 
                     MySqlDataAdapter sqlDA = new MySqlDataAdapter(cmd);
-                    DataTable friendsDataTable = new DataTable();
-                    sqlDA.Fill(friendsDataTable);
+                    DataTable friendshipsDataTable = new DataTable();
+                    sqlDA.Fill(friendshipsDataTable);
 
-                    databaseGridView.DataSource = friendsDataTable;
+                    databaseGridView.DataSource = friendshipsDataTable;
                 }
             }
             #endregion
@@ -80,12 +74,6 @@ namespace FacebookDatabase
             #region Display Facebook Friends List in Datagrid
             if (mainFormComboBox.SelectedIndex == 2)
             {
-                string connectionString = "SERVER=" + DBConnect.SERVER + ";" +
-                    "DATABASE=" + DBConnect.DATABASE_NAME + ";" + "UID=" +
-                    DBConnect.USER_NAME + ";" + "PASSWORD=" +
-                    DBConnect.PASSWORD + ";" + "SslMode=" +
-                    DBConnect.SslMode + ";";
-
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     string query = "SELECT * FROM isad157_clong.facebook_friends_list";
@@ -105,11 +93,6 @@ namespace FacebookDatabase
             #region Display Facebook Messages in Datagrid
             else if (mainFormComboBox.SelectedIndex == 3)
             {
-                string connectionString = "SERVER=" + DBConnect.SERVER + ";" +
-                    "DATABASE=" + DBConnect.DATABASE_NAME + ";" + "UID=" +
-                    DBConnect.USER_NAME + ";" + "PASSWORD=" +
-                    DBConnect.PASSWORD + ";" + "SslMode=" +
-                    DBConnect.SslMode + ";";
 
                 using (MySqlConnection connection =
                     new MySqlConnection(connectionString))
@@ -130,12 +113,6 @@ namespace FacebookDatabase
             #region Display Facebook Users Universities in Datagrid
             else if (mainFormComboBox.SelectedIndex == 4)
             {
-                string connectionString = "SERVER=" + DBConnect.SERVER + ";" +
-                    "DATABASE=" + DBConnect.DATABASE_NAME + ";" + "UID=" +
-                    DBConnect.USER_NAME + ";" + "PASSWORD=" +
-                    DBConnect.PASSWORD + ";" + "SslMode=" +
-                    DBConnect.SslMode + ";";
-
                 using (MySqlConnection connection =
                     new MySqlConnection(connectionString))
                 {
@@ -155,12 +132,6 @@ namespace FacebookDatabase
             #region Display Facebook User Workplaces in Datagrid
             else if (mainFormComboBox.SelectedIndex == 5)
             {
-                string connectionString = "SERVER=" + DBConnect.SERVER + ";" +
-                    "DATABASE=" + DBConnect.DATABASE_NAME + ";" + "UID=" +
-                    DBConnect.USER_NAME + ";" + "PASSWORD=" +
-                    DBConnect.PASSWORD + ";" + "SslMode=" +
-                    DBConnect.SslMode + ";";
-
                 using (MySqlConnection connection =
                     new MySqlConnection(connectionString))
                 {
@@ -177,16 +148,13 @@ namespace FacebookDatabase
             }
             #endregion
         }
-
-
         #endregion
 
-        #region Used to Display the Data from the Datagrid into the Text box
-        private void databaseGridView_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        #region // Used to Display the Data from the Datagrid into the Text box
+        private void databaseGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
             IndexRow = e.RowIndex;
-
             if (mainFormComboBox.SelectedIndex == 0)
             {
                 if (IndexRow >= 0)
@@ -204,23 +172,82 @@ namespace FacebookDatabase
         }
         #endregion
 
+
+        #region // Button Functionality on the Main Form
+
         #region Used to Update data in the Database
         private void btnUpdateUser_Click(object sender, EventArgs e)
         {
-            DataGridViewRow updateDataRow = databaseGridView.Rows[IndexRow];
-            updateDataRow.Cells[0].Value = txtFirstName.Text;
-            updateDataRow.Cells[1].Value = txtLastName.Text;
-            updateDataRow.Cells[2].Value = txtGender.Text;
-            updateDataRow.Cells[3].Value = txtHometown.Text;
-            updateDataRow.Cells[4].Value = txtCity.Text;
+            try
+            {
+                //This is my update query in which i am taking input from the user through windows forms and update the record.  
+                string Query = "update isad157_clong.facebook_users set UserID='" + this.txtUserID.Text + "' ,FirstName = '" + this.txtFirstName.Text + 
+                    "',LastName='" + this.txtLastName.Text + "',Gender='" + this.txtGender.Text + 
+                    "',Hometown='" + this.txtHometown.Text + "',City='" + this.txtCity.Text + 
+                    "' where UserID='" + this.txtUserID.Text + "';";
+
+                //This is  MySqlConnection here i have created the object and pass my connection string.  
+                MySqlConnection MyConnection = new MySqlConnection(connectionString);
+                MySqlCommand sqlcmd = new MySqlCommand(Query, MyConnection);
+                MySqlDataReader MyReader2;
+                MyConnection.Open();
+                MyReader2 = sqlcmd.ExecuteReader();
+                MessageBox.Show("User Details have been Updated!");
+                while (MyReader2.Read())
+                {
+                }
+                MyConnection.Close();//Connection closed here  
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         #endregion
 
-        #region Button Functionality on the Main Form
+        #region Delete User Function
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string Query = "delete from isad157_clong.facebook_users where UserID='" + this.txtUserID.Text + "';";
+
+                MySqlConnection MyConnection = new MySqlConnection(connectionString);
+                MySqlCommand sqlcmd = new MySqlCommand(Query, MyConnection);
+                MySqlDataReader MyReader2;
+
+                MyConnection.Open();
+                MyReader2 = sqlcmd.ExecuteReader();
+                MessageBox.Show("Record has been deleted from the Database");
+                while (MyReader2.Read())
+                {
+                }
+                MyConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        #endregion
+
+        #region Exit Application
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
         #endregion
-    }
+
+        #endregion
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+    } 
 }
