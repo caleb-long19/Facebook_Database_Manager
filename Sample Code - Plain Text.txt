@@ -1,0 +1,116 @@
+Display Datagrid Data In Text Boxes
+
+private void databaseGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            IndexRow = e.RowIndex;
+
+            //If our selected index is equal to 0 (Facebook_users table), display selected rows in our text boxes
+            if (mainFormComboBox.SelectedIndex == 0)
+            {
+                if (IndexRow >= 0)
+                {
+                    //Stores our selected row
+                    DataGridViewRow row = this.databaseGridView.Rows[IndexRow];
+
+                    //The stored selected row is displayed properly in our text boxes and are all converted to Strings
+                    txtUserID.Text = row.Cells["UserID"].Value.ToString();
+                    txtFirstName.Text = row.Cells["FirstName"].Value.ToString();
+                    txtLastName.Text = row.Cells["LastName"].Value.ToString();
+                    txtGender.Text = row.Cells["Gender"].Value.ToString();
+                    txtHometown.Text = row.Cells["Hometown"].Value.ToString();
+                    txtCity.Text = row.Cells["City"].Value.ToString();
+                }
+            }
+        }
+________________________________________________________________________________________________________________________
+
+Update Data in Database Method
+
+ private void UpdateUserDetails()
+        {
+            bool allUserDataIsOk = false; // Create a bool to set whether input is null or not
+            allUserDataIsOk = notNullTextBox(txtFirstName, txtLastName, txtGender, txtHometown, txtCity, "User Details");  // Checks to see if our text boxes are null
+
+            if (allUserDataIsOk)
+            {
+                try
+                {
+                    //An Update Query which links our Windows Form to our Database and replaces the record that has been selected with the data in the Text Boxes 
+                    string UpdateQuery = "update isad157_clong.facebook_users set UserID='" + this.txtUserID.Text + "' ,FirstName = '" + this.txtFirstName.Text +
+                        "',LastName='" + this.txtLastName.Text + "',Gender='" + this.txtGender.Text +
+                        "',Hometown='" + this.txtHometown.Text + "',City='" + this.txtCity.Text +
+                        "' where UserID='" + this.txtUserID.Text + "';";
+
+                    //Creates a connection between our Windows form and our Database
+                    MySqlConnection MyConnection = new MySqlConnection(connectionString);
+                    MySqlCommand sqlcmd = new MySqlCommand(UpdateQuery, MyConnection);
+                    MySqlDataReader QueryReader;
+
+                    //Opens the connection to our database
+                    MyConnection.Open();
+                    QueryReader = sqlcmd.ExecuteReader();
+
+                    //Displays a message informing the User that the details were successfully changed
+                    MessageBox.Show("User Details have been Updated!");
+                    while (QueryReader.Read())
+                    {
+                    }
+                    //Close Database Connection
+                    MyConnection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+________________________________________________________________________________________________________________________
+
+Delete Data in Database Method
+
+ private void DeleteUserFunction()
+        {
+            try
+            {
+                // Creates a Query which deletes a record located in the facebook_users table that is being display in the USER ID Text Box on the windows form
+                string DeleteQuery = "delete from isad157_clong.facebook_users where UserID='" + this.txtUserID.Text + "';";
+
+                // Creates a connection between Visual Studio and My SQL Workbench
+                MySqlConnection MyConnection = new MySqlConnection(connectionString);
+                MySqlCommand sqlcmd = new MySqlCommand(DeleteQuery, MyConnection);
+                MySqlDataReader QueryReader;
+
+                //Opens the Connection
+                MyConnection.Open();
+                QueryReader = sqlcmd.ExecuteReader();
+
+                //Displays the message if a record has been removed from the database
+                MessageBox.Show("Record has been deleted from the Database");
+                while (QueryReader.Read())
+                {
+                }
+                //Close Database Connection
+                MyConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+________________________________________________________________________________________________________________________
+
+Exception Handling Code
+
+ private bool notNullTextBox(TextBox txtFirstName, TextBox txtLastName, TextBox txtGender, TextBox txtHometown, TextBox txtCity, String userFeedback)
+        {
+            if (txtFirstName.Text  == "" || txtLastName.Text == "" || txtGender.Text == "" || txtHometown.Text == "" || txtCity.Text == "")
+            {
+                // Generate error message if input box is empty!
+                MessageBox.Show("ERROR - Text Box is missing " + userFeedback + " and they can't be empty!. Please fill in the missing Text Box/s");
+                return false;
+            }
+            else
+                return true;
+        }
