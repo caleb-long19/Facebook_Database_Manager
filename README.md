@@ -33,7 +33,4 @@ replace the data that has been inserted in those Text Boxes and select the Updat
 To Delete a User you must select a User in the Data Grid, click the delete button and their information will
 be removed from the Database.
 
-To search for a User, you can input their Name or ID in the search box. The search box can be found at the top
-left of the application.
-
 # YOU CAN'T CHANGE THE USER ID AS IT'S BEING USED AS A PRIMARY KEY!
