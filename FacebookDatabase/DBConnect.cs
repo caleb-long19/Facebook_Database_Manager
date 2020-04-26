@@ -4,11 +4,12 @@ using MySql.Data.MySqlClient;
 
 namespace FacebookDatabase
 {
+    #region // Class used in order to store Database log in details!
     class DBConnect
     {
         /// <summary>
         /// The username that we use when connecting to the server. It has the form
-        /// soft562_<your name>.
+        /// isad157_<your name>.
         /// </summary>
         internal const string USER_NAME = "ISAD157_CLong";
 
@@ -34,4 +35,5 @@ namespace FacebookDatabase
         /// </summary>
         internal const string SslMode = "none";
     }
+    #endregion
 }
