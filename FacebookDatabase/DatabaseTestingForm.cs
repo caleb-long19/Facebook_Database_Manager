@@ -60,7 +60,7 @@ namespace FacebookDatabase
             #endregion
 
             #region Display Facebook Friends in Datagrid
-            else if (mainFormComboBox.SelectedIndex == 1)
+            if (mainFormComboBox.SelectedIndex == 1)
             {
                 // Create an open connection to a MySQL Server database
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -107,7 +107,7 @@ namespace FacebookDatabase
             #endregion
 
             #region Display Facebook Messages in Datagrid
-            else if (mainFormComboBox.SelectedIndex == 3)
+            if (mainFormComboBox.SelectedIndex == 3)
             {
                 // Create an open connection to a MySQL Server database
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -130,7 +130,7 @@ namespace FacebookDatabase
             #endregion
 
             #region Display Facebook Users Universities in Datagrid
-            else if (mainFormComboBox.SelectedIndex == 4)
+            if (mainFormComboBox.SelectedIndex == 4)
             {
                 // Create an open connection to a MySQL Server database
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -153,7 +153,7 @@ namespace FacebookDatabase
             #endregion
 
             #region Display Facebook User Workplaces in Datagrid
-            else if (mainFormComboBox.SelectedIndex == 5)
+            if (mainFormComboBox.SelectedIndex == 5)
             {
                 // Create an open connection to a MySQL Server database
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -215,23 +215,23 @@ namespace FacebookDatabase
                 try
                 {
                     //An Update Query which links our Windows Form to our Database and replaces the record that has been selected with the data in the Text Boxes 
-                    string Query = "update isad157_clong.facebook_users set UserID='" + this.txtUserID.Text + "' ,FirstName = '" + this.txtFirstName.Text +
+                    string UpdateQuery = "update isad157_clong.facebook_users set UserID='" + this.txtUserID.Text + "' ,FirstName = '" + this.txtFirstName.Text +
                         "',LastName='" + this.txtLastName.Text + "',Gender='" + this.txtGender.Text +
                         "',Hometown='" + this.txtHometown.Text + "',City='" + this.txtCity.Text +
                         "' where UserID='" + this.txtUserID.Text + "';";
 
                     //Creates a connection between our Windows form and our Database
                     MySqlConnection MyConnection = new MySqlConnection(connectionString);
-                    MySqlCommand sqlcmd = new MySqlCommand(Query, MyConnection);
-                    MySqlDataReader MyReader2;
+                    MySqlCommand sqlcmd = new MySqlCommand(UpdateQuery, MyConnection);
+                    MySqlDataReader QueryReader;
 
                     //Opens the connection to our database
                     MyConnection.Open();
-                    MyReader2 = sqlcmd.ExecuteReader();
+                    QueryReader = sqlcmd.ExecuteReader();
 
                     //Displays a message informing the User that the details were successfully changed
                     MessageBox.Show("User Details have been Updated!");
-                    while (MyReader2.Read())
+                    while (QueryReader.Read())
                     {
                     }
                     //Close Database Connection
@@ -251,20 +251,20 @@ namespace FacebookDatabase
             try
             {
                 // Creates a Query which deletes a record located in the facebook_users table that is being display in the USER ID Text Box on the windows form
-                string Query = "delete from isad157_clong.facebook_users where UserID='" + this.txtUserID.Text + "';";
+                string DeleteQuery = "delete from isad157_clong.facebook_users where UserID='" + this.txtUserID.Text + "';";
 
                 // Creates a connection between Visual Studio and My SQL Workbench
                 MySqlConnection MyConnection = new MySqlConnection(connectionString);
-                MySqlCommand sqlcmd = new MySqlCommand(Query, MyConnection);
-                MySqlDataReader MyReader2;
+                MySqlCommand sqlcmd = new MySqlCommand(DeleteQuery, MyConnection);
+                MySqlDataReader QueryReader;
 
                 //Opens the Connection
                 MyConnection.Open();
-                MyReader2 = sqlcmd.ExecuteReader();
+                QueryReader = sqlcmd.ExecuteReader();
 
                 //Displays the message if a record has been removed from the database
                 MessageBox.Show("Record has been deleted from the Database");
-                while (MyReader2.Read())
+                while (QueryReader.Read())
                 {
                 }
                 //Close Database Connection
