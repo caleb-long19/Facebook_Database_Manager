@@ -24,12 +24,43 @@ The Sample Code used in the Application to make the Update and Delete Features F
 can be viewed in the repository as well, this also includes the Exception Handling code also.
 
 # How To Use The Application
-Once you load the Application you will need to select what table you wish to display in the Data Grid. To do this
-select the drop menu in the bottom right corner and select a Table. The Data will automatically be imported and displayed.
+<img src="Application_Images/Application_UI.png" width="800" >
+**Facebook Manager Application UI**
 
+<br/>
+<br/>
+<br/>
+
+<img src="Application_Images/UI_Example.png" width="800" >
+**Here is a brief overview of how to naviate the UI!**
+
+- The Yellow Arrow shows us the Data Grid View. This will display the Table Data stored in the Database!
+- The Red Arrow indicates the Combo Box. This allows you to select what table displays in the Data Grid View!
+- The Green Arrow shows us where the User Data will be displayed!
+- The Pink Arrows indicate the Update and Delete Buttons!
+- The Black Arrow indicates the Exit Button. Used to close the application!
+
+<br/>
+<br/>
+<br/>
+
+<img src="Application_Images/User_Details.png" width="800" >
+In order to display users details you must select a record/row in the Datagrid and it will automatically display itself in the User Details on the left hand side!
+
+<br/>
+<br/>
+<br/>
+
+<img src="Application_Images/Update_Function.png" width="800" >
 To update User Data, select a user in the Facebook Users table, the data will be shown in the Text Boxes on the left,
-replace the data that has been inserted in those Text Boxes and select the Update button underneath.
+replace the data that has been inserted in those Text Boxes and select the Update button underneath. A Message Box will
+appear and inform you that the User Details have been changed!
 
+<br/>
+<br/>
+<br/>
+
+<img src="Application_Images/Delete_User_2.png" width="800" >
 To Delete a User you must select a User in the Data Grid, click the delete button and their information will
 be removed from the Database.
 
