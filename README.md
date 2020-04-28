@@ -25,6 +25,7 @@ can be viewed in the repository as well, this also includes the Exception Handli
 
 # How To Use The Application
 <img src="Application_Images/Application_UI.png" width="800" >
+
 **Facebook Manager Application UI**
 
 <br/>
@@ -32,6 +33,7 @@ can be viewed in the repository as well, this also includes the Exception Handli
 <br/>
 
 <img src="Application_Images/UI_Example.png" width="800" >
+
 **Here is a brief overview of how to naviate the UI!**
 
 - The Yellow Arrow shows us the Data Grid View. This will display the Table Data stored in the Database!
