@@ -135,7 +135,7 @@ namespace FacebookDatabase
                 // Create an open connection to a MySQL Server database
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
-                    string query = "SELECT * FROM isad157_clong.facebook_universities"; // Creates a query to display all data stored in facebook_universities table in our data grid view
+                    string query = "SELECT * FROM isad157_clong.facebook_university"; // Creates a query to display all data stored in facebook_universities table in our data grid view
                     connection.Open(); // Open a Database Connection
 
                     // Submit the SQL statement to be executed against the MySQL database.
